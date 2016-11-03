@@ -112,6 +112,7 @@ require("functions.php");
 				$html .= "<td>".$s->show."</td>";
 				$html .= "<td>".$s->season."</td>";
 				$html .= "<td>".$s->episode."</td>";
+				$html .= "<td><a href='edit.php?id=".$s->id."'>edit.php</a></td>";
 			$html .= "</tr>";
 			
 		}

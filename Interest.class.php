@@ -53,7 +53,7 @@ class Interest
 		JOIN user_interests 
 		ON user_interests.interest_id=interests.id
 		WHERE user_interests.user_id=?
-	    ");
+	");
 
         echo $this->connection->error;
 
