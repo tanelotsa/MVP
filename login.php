@@ -143,8 +143,8 @@
 		$password = hash("sha512",$_POST["signupPassword"]);
 	
 		//echo $password ;
-		
-		signup(cleanInput($signupEmail), $password);
+
+		$User->signup(cleanInput($signupEmail), $password);
 		
 		
 		}
@@ -159,7 +159,7 @@
 			 !empty($_POST["loginPassword"]) 
 		
 		) {
-			$notice = login(cleanInput($_POST["loginEmail"]), cleanInput($_POST["loginPassword"]));
+			$notice = $User->login(cleanInput($_POST["loginEmail"]), cleanInput($_POST["loginPassword"]));
 		
 		} 
 			 

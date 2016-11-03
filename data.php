@@ -30,14 +30,14 @@ require("functions.php");
 			 !empty($_POST["episode"]) 
 		
 		) {
-								
-			saveShow(cleanInput($_POST["show"]),cleanInput($_POST["season"]),cleanInput($_POST["episode"]));
+
+		$Event->saveShow($Helper->cleanInput($_POST["show"]),$Helper->cleanInput($_POST["season"]),$Helper->cleanInput($_POST["episode"]));
 			
 		} else {
 			$saveShowError = "Täida väljad !";
 		}
 	
-		$shows = getAllShows();
+		$shows = $Event->getAllShows();
 		
 		//echo "<pre>";
 		//var_dump($shows);
