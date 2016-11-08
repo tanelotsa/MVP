@@ -99,7 +99,7 @@ require("functions.php");
 	$html = "<table>";
 	
 		$html .= "<tr>";
-			$html .= "<td>ID</td>";
+			//$html .= "<td>ID</td>";
 			$html .= "<td>Sari</td>";
 			$html .= "<td>Hooaeg</td>";
 			$html .= "<td>Episood</td>";
@@ -108,7 +108,7 @@ require("functions.php");
 		foreach ($shows as $s) {
 			
 			$html .= "<tr>";
-				$html .= "<td>".$s->id."</td>";
+				//$html .= "<td>".$s->id."</td>";
 				$html .= "<td>".$s->show."</td>";
 				$html .= "<td>".$s->season."</td>";
 				$html .= "<td>".$s->episode."</td>";
