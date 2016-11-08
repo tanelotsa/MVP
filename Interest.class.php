@@ -14,10 +14,7 @@ class Interest
     function getAllInterests()
     {
 
-        $stmt = $this->connection->prepare("
-			SELECT id, interest
-			FROM interests
-		");
+        $stmt = $this->connection->prepare("SELECT id, interest	FROM interests");
         echo $this->connection->error;
 
         $stmt->bind_result($id, $interest);
@@ -136,6 +133,11 @@ class Interest
 
         $stmt->close();
     }
+
+
+
+
+
 
 }
 ?>

@@ -113,17 +113,17 @@
 	
 	
 	$html = "<table>";
-	
+
 		$html .= "<tr>";
-			$html .= "<td>Huvialad</td>";
+				$html .= "<th>ID</th>";
+				$html .= "<th>interest</th>";
 		$html .= "</tr>";
-		
-		foreach ($allUserInterests as $i) {
-			
-			$html .= "<tr>";
+
+		foreach ($interests as $i) {
+				$html .= "<tr>";
+				$html .= "<td>".$i->id."</td>";
 				$html .= "<td>".$i->interest."</td>";
-			$html .= "</tr>";
-			
+		$html .= "</tr>";
 		}
 		
 	$html .= "</table>";
