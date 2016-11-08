@@ -4,7 +4,7 @@
 
     if(isset($_POST["update"])){
 
-        $Event->updateShow($Helper->cleanInput($_POST["id"]), $Helper->cleanInput($_POST["age"]), $Helper->cleanInput($_POST["color"]));
+        $Event->updateShow($Helper->cleanInput($_POST["id"]), $Helper->cleanInput($_POST["show"]), $Helper->cleanInput($_POST["season"]), $Helper->cleanInput($_POST["episode"]));
 
         header("Location: edit.php?id=".$_POST["id"]."&success=true");
         exit();
@@ -37,3 +37,4 @@
 
     <input type="submit" name="update" value="Salvesta">
 </form>
+<a href="?id=<?=$_GET["id"];?>&delete=true">kustuta</a>
