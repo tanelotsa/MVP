@@ -15,6 +15,12 @@
     $s = $Event->getSingleShowData($_GET["id"]);
     var_dump($s);
 
+    //kustutamine
+    if(isset($_GET["delete"])){
+        $Event->deleteShow($_GET["id"]);
+        header("Location: data.php");
+        exit();
+    }
 
 ?>
 

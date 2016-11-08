@@ -9,24 +9,30 @@ class Event{
         $this->connection = $mysqli;
     }
 
-    function saveShow($show,$season,$episode) {
+    function deleteShow($id){
 
-        $stmt = $this->connection ->prepare("INSERT INTO tvshows (showname, season, episode, userid) VALUE(?,?,?,?)");
-        echo $this->connection->error;
+        $database = "if16_taneotsa_4";
 
-        $stmt->bind_param("siii", $show, $season, $episode, $_SESSION ["userId"]);
+        $stmt = $this->connection ->prepare("
+		UPDATE tvshows SET deleted=NOW()
+		WHERE id=? AND deleted IS NULL");
+        $stmt->bind_param("i",$id);
 
-        if($stmt->execute() ) {
-            echo "Õnnestus!","<br>";
-        } else{
-            echo "ERROR".$stmterror;
+        // kas õnnestus salvestada
+        if($stmt->execute()){
+            // õnnestus
+            echo "salvestus õnnestus!";
         }
+
+        $stmt->close();
 
     }
 
+
+
     function getAllShows () {
 
-        $stmt = $this->connection->prepare("SELECT id, showname, season, episode FROM tvshows Where userid = ?");
+        $stmt = $this->connection->prepare("SELECT id, showname, season, episode FROM tvshows Where userid = ? AND deleted IS NULL");
 
         $stmt->bind_param("i", $_SESSION ["userId"]);
         $stmt->bind_result($id, $show, $season, $episode);
@@ -52,7 +58,7 @@ class Event{
 
     function getSingleShowData($edit_id){
 
-        $stmt = $this->connection->prepare("SELECT showname, season, episode FROM tvshows WHERE id=?");
+        $stmt = $this->connection->prepare("SELECT showname, season, episode FROM tvshows WHERE id=?  AND deleted IS NULL");
 
         $stmt->bind_param("i", $edit_id);
         $stmt->bind_result($show, $season, $episode);
@@ -84,7 +90,7 @@ class Event{
 
     function updateShow($id, $show, $season, $episode){
 
-        $stmt = $this->connection->prepare("UPDATE tvshows SET showname=?, season=?, episode=? WHERE id=?");
+        $stmt = $this->connection->prepare("UPDATE tvshows SET showname=?, season=?, episode=? WHERE id=?  AND deleted IS NULL");
         $stmt->bind_param("siii",$show, $season, $episode, $id);
 
         // kas õnnestus salvestada
@@ -96,5 +102,21 @@ class Event{
         $stmt->close();
 
     }
+
+    function saveShow($show,$season,$episode) {
+
+        $stmt = $this->connection ->prepare("INSERT INTO tvshows (showname, season, episode, userid) VALUE(?,?,?,?)");
+        echo $this->connection->error;
+
+        $stmt->bind_param("siii", $show, $season, $episode, $_SESSION ["userId"]);
+
+        if($stmt->execute() ) {
+            echo "Õnnestus!","<br>";
+        } else{
+            echo "ERROR".$stmterror;
+        }
+
+    }
+
 }
 ?>
