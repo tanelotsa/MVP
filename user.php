@@ -1,8 +1,15 @@
 <?php 
 	
 	require("functions.php");
-	
-	//kui ei ole kasutaja id'd
+
+	require("Helper.class.php");
+	$Helper = new Helper($mysqli);
+
+	require("Interest.class.php");
+	$Interest = new Interest($mysqli);
+
+
+//kui ei ole kasutaja id'd
 	if (!isset($_SESSION["userId"])){
 		
 		//suunan sisselogimise lehele

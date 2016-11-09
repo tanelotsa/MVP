@@ -1,9 +1,15 @@
 <?php
 	//ühendan sessiooniga
 
-/** @noinspection PhpIncludeInspection */
-require("functions.php");
-	
+	/** @noinspection PhpIncludeInspection */
+	require("functions.php");
+
+	require("Helper.class.php");
+	$Helper = new Helper($mysqli);
+
+	require("Event.class.php");
+	$Event = new Event($mysqli);
+
 	//kui ei ole sisseloginud, suunan login lehele
 	if (!isset($_SESSION["userId"])) {
 		header("Location: login.php");  //iga headeri järele tuleks lisada exit

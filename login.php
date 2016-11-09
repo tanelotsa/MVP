@@ -1,7 +1,13 @@
 <?php
 	
 	require("functions.php");
-	
+
+	require("Helper.class.php");
+	$Helper = new Helper($mysqli);
+
+	require("User.class.php");
+	$User = new User($mysqli);
+
 	//kui on sisseloginud, suunan data lehele
 	if (isset($_SESSION["userId"])) {
 		header("Location: data.php");	

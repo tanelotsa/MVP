@@ -2,6 +2,12 @@
 
     require("functions.php");
 
+    require("Helper.class.php");
+    $Helper = new Helper($mysqli);
+
+    require("Event.class.php");
+    $Event = new Event($mysqli);
+
     if(isset($_POST["update"])){
 
         $Event->updateShow($Helper->cleanInput($_POST["id"]), $Helper->cleanInput($_POST["show"]), $Helper->cleanInput($_POST["season"]), $Helper->cleanInput($_POST["episode"]));
