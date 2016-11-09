@@ -30,11 +30,24 @@ class Event{
 
 
 
-    function getAllShows () {
+    function getAllShows ($q) {
 
-        $stmt = $this->connection->prepare("SELECT id, showname, season, episode FROM tvshows Where userid = ? AND deleted IS NULL");
+        if ($q != "") {
+            //otsin
+            echo "otsin: ".$q;
 
-        $stmt->bind_param("i", $_SESSION ["userId"]);
+            $stmt = $this->connection->prepare("
+              SELECT id, showname, season, episode FROM tvshows Where userid = ? AND deleted IS NULL AND ( showname LIKE ? OR season LIKE ? OR episode like ?)
+              ");
+            $searchWord = "%".$q."%";
+            $stmt->bind_param("isss", $_SESSION ["userId"],$searchWord, $searchWord, $searchWord);
+        } else {
+            //ei otsi
+            $stmt = $this->connection->prepare("SELECT id, showname, season, episode FROM tvshows Where userid = ? AND deleted IS NULL");
+
+            $stmt->bind_param("i", $_SESSION ["userId"]);
+        }
+
         $stmt->bind_result($id, $show, $season, $episode);
         $stmt->execute ();
 

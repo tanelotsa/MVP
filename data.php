@@ -42,8 +42,17 @@
 		} else {
 			$saveShowError = "Täida väljad !";
 		}
-	
-		$shows = $Event->getAllShows();
+
+		if (isset($_GET["q"])) {
+
+			$q = $_GET["q"];
+
+		} else {
+			//ei otsi
+			$q = "";
+		}
+
+		$shows = $Event->getAllShows($q);
 		
 		//echo "<pre>";
 		//var_dump($shows);
@@ -98,14 +107,20 @@
 	</form>
 	
 	<h2>Arhiiv</h2>
-	
+
+	<form>
+		<input type="search" name="q" value="<?=$q;?>">
+		<input type="submit" value="Otsi">
+
+	</form>
+
 <?php
 	
 	
 	$html = "<table>";
 	
 		$html .= "<tr>";
-			//$html .= "<td>ID</td>";
+			$html .= "<td>ID</td>";
 			$html .= "<td>Sari</td>";
 			$html .= "<td>Hooaeg</td>";
 			$html .= "<td>Episood</td>";
@@ -114,7 +129,7 @@
 		foreach ($shows as $s) {
 			
 			$html .= "<tr>";
-				//$html .= "<td>".$s->id."</td>";
+				$html .= "<td>".$s->id."</td>";
 				$html .= "<td>".$s->show."</td>";
 				$html .= "<td>".$s->season."</td>";
 				$html .= "<td>".$s->episode."</td>";
