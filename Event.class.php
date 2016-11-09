@@ -30,20 +30,36 @@ class Event{
 
 
 
-    function getAllShows ($q) {
+    function getAllShows($q, $sort, $order) {
+
+        $allowedSort = ["id", "show", "season", "episode"];
+
+
+        // sort ei kuulu lubatud tulpade sisse
+        if(!in_array($sort, $allowedSort)){
+            $sort = "id";
+        }
+
+        $orderBy = "ASC";
+
+        if($order == "DESC") {
+            $orderBy = "DESC";
+        }
+
+        echo "Sorteerin: ".$sort." ".$orderBy." ";
 
         if ($q != "") {
             //otsin
             echo "otsin: ".$q;
 
             $stmt = $this->connection->prepare("
-              SELECT id, showname, season, episode FROM tvshows Where userid = ? AND deleted IS NULL AND ( showname LIKE ? OR season LIKE ? OR episode like ?)
+              SELECT id, showname, season, episode FROM tvshows Where userid = ? AND deleted IS NULL AND ( showname LIKE ? OR season LIKE ? OR episode like ?) ORDER BY $sort $orderBy
               ");
             $searchWord = "%".$q."%";
             $stmt->bind_param("isss", $_SESSION ["userId"],$searchWord, $searchWord, $searchWord);
         } else {
             //ei otsi
-            $stmt = $this->connection->prepare("SELECT id, showname, season, episode FROM tvshows Where userid = ? AND deleted IS NULL");
+            $stmt = $this->connection->prepare("SELECT id, showname, season, episode FROM tvshows Where userid = ? AND deleted IS NULL ORDER BY $sort $orderBy");
 
             $stmt->bind_param("i", $_SESSION ["userId"]);
         }

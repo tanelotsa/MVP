@@ -52,8 +52,17 @@
 			$q = "";
 		}
 
-		$shows = $Event->getAllShows($q);
-		
+        //vaikimisi, kui keegi mingit linki ei vajuta
+        $sort = "id";
+        $order = "ASC";
+
+        if (isset($_GET["sort"]) && isset($_GET["order"])) {
+            $sort = $_GET["sort"];
+            $order = $_GET["order"];
+        }
+
+        $shows = $Event->getAllShows($q, $sort, $order);
+
 		//echo "<pre>";
 		//var_dump($shows);
 		//echo "</pre>";
@@ -120,10 +129,47 @@
 	$html = "<table>";
 	
 		$html .= "<tr>";
-			$html .= "<td>ID</td>";
-			$html .= "<td>Sari</td>";
-			$html .= "<td>Hooaeg</td>";
-			$html .= "<td>Episood</td>";
+
+        $orderId = "ASC";
+        if (isset($_GET["order"]) &&
+            $_GET["order"] == "ASC" &&
+            $_GET["sort"] == "id" ) {
+
+            $orderId = "DESC";
+        }
+
+        $orderShow = "ASC";
+        if (isset($_GET["order"]) &&
+            $_GET["order"] == "ASC" &&
+            $_GET["sort"] == "show" ) {
+
+            $orderShow = "DESC";
+        }
+
+        $orderSeason = "ASC";
+        if (isset($_GET["order"]) &&
+            $_GET["order"] == "ASC" &&
+            $_GET["sort"] == "season" ) {
+
+            $orderSeason = "DESC";
+        }
+
+        $orderEpisode = "ASC";
+        if (isset($_GET["order"]) &&
+            $_GET["order"] == "ASC" &&
+            $_GET["sort"] == "episode" ) {
+
+            $orderEpisode = "DESC";
+        }
+
+            $html .= "<th> <a href='?q=".$q."&sort=id&order=".$orderId."'> ID </a> </th>";
+
+            $html .= "<th> <a href='?q=".$q."&sort=show&order=".$orderShow."'> Sari </a> </th>";
+
+            $html .= "<th> <a href='?q=".$q."&sort=season&order=".$orderSeason."'> Hooaeg </a> </th>";
+
+            $html .= "<th> <a href='?q=".$q."&sort=episode&order=".$orderEpisode."'> Episood </a> </th>";
+
 		$html .= "</tr>";
 		
 		foreach ($shows as $s) {
@@ -133,7 +179,7 @@
 				$html .= "<td>".$s->show."</td>";
 				$html .= "<td>".$s->season."</td>";
 				$html .= "<td>".$s->episode."</td>";
-				$html .= "<td><a href='edit.php?id=".$s->id."'>edit.php</a></td>";
+				$html .= "<td><a href='edit.php?id=".$s->id."'>Muuda</a></td>";
 			$html .= "</tr>";
 			
 		}
