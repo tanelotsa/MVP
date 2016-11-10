@@ -1,5 +1,5 @@
 <?php
-	require("../../config.php");
+	require("/home/taneotsa/config.php");
 	
 	//see fail peab olema seotud kõigiga, kus tahame sessiooni kasutada
 	//saab kasutada nüüd $_SESSION muutujat
