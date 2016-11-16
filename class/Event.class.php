@@ -32,7 +32,7 @@ class Event{
 
     function getAllShows($q, $sort, $order) {
 
-        $allowedSort = ["id", "show", "season", "episode"];
+        $allowedSort = ["id", "showname", "season", "episode"];
 
 
         // sort ei kuulu lubatud tulpade sisse
